@@ -32,7 +32,6 @@ public class GuessTheNumberBetter extends JFrame{
     }
 
     private void initUi() {
-        System.out.println(computerNumber + " ");
         computerNumber = (int) (Math.random()*20 + 1);
         userAnswer = 0; 
         count = 0;
@@ -129,6 +128,7 @@ public class GuessTheNumberBetter extends JFrame{
         count = 0;
         info.setText("");
         userInput.setText("");
+        tries.setText("Tries till now: " + 0);
     }
 
     private String determineGuess(int userAnswer, int computerNumber, int count){
@@ -155,6 +155,8 @@ public class GuessTheNumberBetter extends JFrame{
                                 m + "\nEnter your name", "You Won!", 3);
         if (name != null && name.length() > 1) {
             HighScoreDAO.addScore(new Player(name, count));
+            leaderboard = HighScoreDAO.getLeaderboard();
+            JOptionPane.showMessageDialog(GuessTheNumberBetter.this, createMessage(leaderboard), "Leaderboard", JOptionPane.PLAIN_MESSAGE);
             resetAll();
         }
     }
